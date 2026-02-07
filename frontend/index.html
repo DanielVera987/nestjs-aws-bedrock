@@ -1,0 +1,47 @@
+|<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot - AWS Bedrock</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="chat-container">
+    <header class="chat-header">
+      <div class="header-icon">🤖</div>
+      <div>
+        <h1>Bedrock Chat</h1>
+        <span class="subtitle">Asistente IA con AWS Bedrock</span>
+      </div>
+    </header>
+
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot">
+        <div class="message-avatar">🤖</div>
+        <div class="message-bubble">
+          ¡Hola! Soy tu asistente con IA. ¿En qué puedo ayudarte?
+        </div>
+      </div>
+    </div>
+
+    <form class="chat-input" id="chatForm">
+      <input
+        type="text"
+        id="questionInput"
+        placeholder="Escribe tu pregunta..."
+        autocomplete="off"
+        required
+      />
+      <button type="submit" id="sendBtn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </form>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
