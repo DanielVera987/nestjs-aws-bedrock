@@ -1,121 +1,150 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Bedrock Chat - Asistente IA con AWS Bedrock
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Chatbot inteligente construido con **NestJS** y **AWS Bedrock**, que utiliza modelos de lenguaje de Amazon (Nova) para responder preguntas en tiempo real a través de una interfaz web moderna.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+![Bedrock Chat](image.png)
 
-## Description
+## Tecnologías
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Backend:** [NestJS](https://nestjs.com/) v11
+- **IA:** [AWS Bedrock](https://aws.amazon.com/bedrock/) (modelo Amazon Nova 2 Lite por defecto)
+- **Frontend:** HTML, CSS y JavaScript vanilla
+- **Runtime:** Node.js
+- **Package Manager:** pnpm
 
-## Project setup
+## Estructura del proyecto
 
-```bash
-$ pnpm install
+```
+nestjs-aws-bedrock/
+├── src/
+│   ├── main.ts                        # Punto de entrada de la aplicación
+│   ├── app.module.ts                  # Módulo principal de NestJS
+│   ├── app.controller.ts             # Controlador con endpoint POST /
+│   ├── bedrock.service.ts            # Servicio de integración con AWS Bedrock
+│   └── dto/
+│       ├── ChatRequestDTO.ts          # DTO de petición del chat
+│       └── ResponseInvokeModelDTO.ts  # DTO de respuesta del modelo
+├── frontend/
+│   ├── index.html                     # Interfaz del chatbot
+│   ├── styles.css                     # Estilos de la interfaz
+│   └── app.js                         # Lógica del frontend
+├── test/                              # Tests e2e
+├── .env.example                       # Variables de entorno de ejemplo
+├── package.json
+└── tsconfig.json
 ```
 
-## AWS credentials
+## Requisitos previos
 
-Bedrock uses standard AWS credentials (not an API key). Set either env vars or a profile:
+- **Node.js** >= 18
+- **pnpm** (o npm/yarn)
+- **Cuenta de AWS** con acceso a Amazon Bedrock
+- **Credenciales de AWS** configuradas localmente (`~/.aws/credentials` o variables de entorno)
 
-```bash
-# Option A: env vars
-export AWS_REGION=us-east-1
-export AWS_ACCESS_KEY_ID=...
-export AWS_SECRET_ACCESS_KEY=...
-export AWS_SESSION_TOKEN=... # optional
+## Instalación
 
-# Option B: shared credentials + profile
-export AWS_PROFILE=default
-```
+1. **Clonar el repositorio:**
 
-## Bedrock model id
+   ```bash
+   git clone https://github.com/DanielVera987/nestjs-aws-bedrock.git
+   cd nestjs-aws-bedrock
+   ```
 
-Set a model id that is available in your region and enabled for your account:
+2. **Instalar dependencias:**
 
-```bash
-export BEDROCK_MODEL_ID=amazon.titan-text-lite-v1
-```
+   ```bash
+   pnpm install
+   ```
 
-## Compile and run the project
+3. **Configurar variables de entorno:**
 
-```bash
-# development
-$ pnpm run start
+   ```bash
+   cp .env.example .env
+   ```
 
-# watch mode
-$ pnpm run start:dev
+   Edita el archivo `.env` con tus valores:
 
-# production mode
-$ pnpm run start:prod
-```
+   ```env
+   BEDROCK_MODEL_ID='us.amazon.nova-2-lite-v1:0'
+   BEDROCK_REGION='us-east-2'
+   ```
 
-## Run tests
+## Uso
 
-```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Iniciar el servidor en modo desarrollo
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+pnpm start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+El servidor se iniciará en `http://localhost:3000`.
 
-## Resources
+### Iniciar en modo producción
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+pnpm build
+pnpm start:prod
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Abrir el frontend
 
-## Support
+Abre el archivo `frontend/index.html` en tu navegador o sírvelo con cualquier servidor estático.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## API
 
-## Stay in touch
+### `POST /`
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Envía una pregunta al modelo de IA.
 
-## License
+**Request body:**
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```json
+{
+  "question": "¿Cuál es la capital de México?"
+}
+```
+
+**Response:**
+
+```json
+{
+  "data": {
+    "respuesta": "La capital de México es la Ciudad de México (CDMX)."
+  }
+}
+```
+
+### Ejemplo con cURL
+
+```bash
+curl -X POST http://localhost:3000 \
+  -H "Content-Type: application/json" \
+  -d '{"question": "¿Cuál es la capital de México?"}'
+```
+
+## Configuración de AWS Bedrock
+
+1. Asegúrate de tener habilitado el acceso al modelo en la consola de AWS Bedrock.
+2. Configura tus credenciales de AWS de alguna de estas formas:
+   - Archivo `~/.aws/credentials`
+   - Variables de entorno `AWS_ACCESS_KEY_ID` y `AWS_SECRET_ACCESS_KEY`
+   - IAM Role (en caso de ejecutar en EC2/ECS/Lambda)
+
+## Scripts disponibles
+
+| Script              | Descripción                          |
+|---------------------|--------------------------------------|
+| `pnpm start`        | Inicia la aplicación                 |
+| `pnpm start:dev`    | Inicia en modo desarrollo (watch)    |
+| `pnpm start:debug`  | Inicia en modo debug (watch)         |
+| `pnpm build`        | Compila el proyecto                  |
+| `pnpm start:prod`   | Inicia la versión compilada          |
+| `pnpm lint`         | Ejecuta el linter                    |
+| `pnpm format`       | Formatea el código con Prettier      |
+| `pnpm test`         | Ejecuta los tests unitarios          |
+| `pnpm test:e2e`     | Ejecuta los tests end-to-end         |
+| `pnpm test:cov`     | Genera reporte de cobertura          |
+
+## Licencia
+
+Este proyecto es de uso privado.
